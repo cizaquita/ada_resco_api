@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from adaapp.serializers import UserSerializer, GroupSerializer, PostSerializer
-from adaapp.models import Post
+from adaapp.serializers import UserSerializer, GroupSerializer, PostSerializer, FactionSerializer, AgentSerializer
+from adaapp.models import Post, Faction, Agent
  
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -25,4 +25,20 @@ class PostViewSet(viewsets.ModelViewSet):
     """
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    #permission_classes = (IsAdminUser,)
+
+class FactionViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Faction.objects.all()
+    serializer_class = FactionSerializer
+    #permission_classes = (IsAdminUser,)
+
+class AgentViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Agent.objects.all()
+    serializer_class = AgentSerializer
     #permission_classes = (IsAdminUser,)
