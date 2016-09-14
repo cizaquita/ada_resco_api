@@ -155,3 +155,21 @@ def update_agent_city(request):
             return JsonResponse({'status':'error', 'response':'usuario no encontrado'})
     else:
         return JsonResponse({'status':'error', 'response':'request invalido'})
+
+@csrf_exempt
+def update_trivia_points(request):
+    if request.method == "POST":
+        telegram_id = request.POST.get("telegram_id")
+        action = request.POST.get("action")
+        try:
+            agent = Agent.objects.get(telegram_id=telegram_id)
+            if action == "sumar":
+                agent.trivia_points += 1
+            else:
+                agent.trivia_points -= 1
+            agent.save()
+            return JsonResponse({'status':'ok',"name":agent.name,"trivia_points":agent.trivia_points})
+        except:
+            return JsonResponse({'status':'error', 'response':'usuario no encontrado'})
+    else:
+        return JsonResponse({'status':'error', 'response':'request invalido'})

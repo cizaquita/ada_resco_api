@@ -37,5 +37,6 @@ urlpatterns = [
     url(r'^verify_agent/', views.verify_agent, name='verify_agent'),
     url(r'^update_agent_ver_lvl/', views.update_agent_ver_lvl, name='update_agent_ver_lvl'),
     url(r'^get_agent_bynick/', views.get_agent_bynick, name='get_agent_bynick'),
-    url(r'^update_agent_city/', views.update_agent_city, name='update_agent_city')
+    url(r'^update_agent_city/', views.update_agent_city, name='update_agent_city'),
+    url(r'^update_trivia_points/', views.update_trivia_points, name='update_trivia_points')
 ]
