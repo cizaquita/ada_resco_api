@@ -24,6 +24,7 @@ class Agent(models.Model):
     faction = models.ForeignKey(Faction,blank=True,null=True)
     city = models.CharField(max_length=40, verbose_name='Ciudad')
     verified = models.BooleanField(blank=True,default=False, verbose_name='Verificado')
+    verified_for = models.CharField(max_length=50,default="",blank=True,null=True, verbose_name='Verificado Por')
     # Nivel de verificación: 0 ninguno, 1 perfil agente, 2 en persona, 3 para OPS
     verified_level = models.IntegerField(default=0, verbose_name='Nivel de verificación')
     ingress_nick = models.CharField(max_length=30, verbose_name='Ingress Nick')
