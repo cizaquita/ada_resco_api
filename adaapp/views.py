@@ -83,7 +83,7 @@ def get_agent(request):
 
         try:
             agent = Agent.objects.get(telegram_id=telegram_id)
-            return JsonResponse({'status':'ok',"name":agent.name,"city":agent.city,"verified":agent.verified,"ingress_nick":agent.ingress_nick,"ingress_level":agent.ingress_level,"telegram_nick":agent.telegram_nick,"telegram_id":agent.telegram_id, "trivia_points":agent.trivia_points, "verified_for":agent.verified_for})
+            return JsonResponse({'status':'ok',"name":agent.name,"city":agent.city,"verified":agent.verified,"ingress_nick":agent.ingress_nick,"ingress_level":agent.ingress_level,"telegram_nick":agent.telegram_nick,"telegram_id":agent.telegram_id, "trivia_points":agent.trivia_points, "verified_for":agent.verified_for, "verified_level":agent.verified_level})
         except:
             return JsonResponse({'status':'error', 'response':'usuario no encontrado'})
     else:
@@ -122,13 +122,17 @@ def verify_agent(request):
         return JsonResponse({'status':'error', 'response':'request invalido'})
 
 @csrf_exempt
-def verify_profile(request):
+def update_agent_ver_lvl(request):
     if request.method == "POST":
         telegram_id = request.POST.get("telegram_id")
+        verified_level = request.POST.get("verified_level")
+        verified_for = request.POST.get("verified_for")
 
         try:
             agent = Agent.objects.get(telegram_id=telegram_id)
-            agent.verified_level = 1
+            agent.verified_level = verified_level
+            agent.verified_for = verified_for
+            agent.verified = True
             agent.save()
             return JsonResponse({'status':'ok',"name":agent.name,"verified_level":agent.verified_level})
         except:

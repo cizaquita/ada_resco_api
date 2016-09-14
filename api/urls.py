@@ -35,7 +35,7 @@ urlpatterns = [
     url(r'^create_agent/', views.create_agent, name='create_agent'),
     url(r'^get_agent/', views.get_agent, name='get_agent'),
     url(r'^verify_agent/', views.verify_agent, name='verify_agent'),
-    url(r'^verify_profile/', views.verify_profile, name='verify_profile'),
+    url(r'^update_agent_ver_lvl/', views.update_agent_ver_lvl, name='update_agent_ver_lvl'),
     url(r'^get_agent_bynick/', views.get_agent_bynick, name='get_agent_bynick'),
     url(r'^update_agent_city/', views.update_agent_city, name='update_agent_city')
 ]
