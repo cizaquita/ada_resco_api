@@ -31,6 +31,8 @@ router.register(r'agents', views.AgentViewSet)
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include(router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^create_agent/', views.create_agent, name='create_agent'),
+    url(r'^get_agent/', views.get_agent, name='get_agent')
 
 ]
