@@ -21,6 +21,7 @@ class Faction(models.Model):
 
 class Agent(models.Model):
     name = models.CharField(max_length=40, verbose_name='Nombre')
+    profile_picture = models.CharField(max_length=100,default="",blank=True,null=True, verbose_name='Foto Perfil')
     faction = models.ForeignKey(Faction,blank=True,null=True)
     city = models.CharField(max_length=40, verbose_name='Ciudad')
     verified = models.BooleanField(blank=True,default=False, verbose_name='Verificado')

@@ -79,11 +79,10 @@ def create_agent(request):
 def get_agent(request):
     if request.method == "POST":
         telegram_id = request.POST.get("telegram_id")
-        agent = Agent.objects.get(telegram_id=telegram_id)
 
         try:
             agent = Agent.objects.get(telegram_id=telegram_id)
-            return JsonResponse({'status':'ok',"name":agent.name,"city":agent.city,"verified":agent.verified,"ingress_nick":agent.ingress_nick,"ingress_level":agent.ingress_level,"telegram_nick":agent.telegram_nick,"telegram_id":agent.telegram_id, "trivia_points":agent.trivia_points, "verified_for":agent.verified_for, "verified_level":agent.verified_level})
+            return JsonResponse({'status':'ok',"name":agent.name,"city":agent.city,"verified":agent.verified,"ingress_nick":agent.ingress_nick,"ingress_level":agent.ingress_level,"telegram_nick":agent.telegram_nick,"telegram_id":agent.telegram_id, "trivia_points":agent.trivia_points, "verified_for":agent.verified_for, "verified_level":agent.verified_level, "profile_picture":agent.profile_picture})
         except:
             return JsonResponse({'status':'error', 'response':'usuario no encontrado'})
     else:
@@ -134,7 +133,7 @@ def update_agent_ver_lvl(request):
             agent.verified_for = verified_for
             agent.verified = True
             agent.save()
-            return JsonResponse({'status':'ok',"name":agent.name,"verified_level":agent.verified_level})
+            return JsonResponse({'status':'ok',"telegram_nick":agent.telegram_nick,'name':agent.name,"verified_level":agent.verified_level})
         except:
             return JsonResponse({'status':'error', 'response':'usuario no encontrado'})
     else:
@@ -169,6 +168,21 @@ def update_trivia_points(request):
                 agent.trivia_points -= 1
             agent.save()
             return JsonResponse({'status':'ok',"name":agent.name,"trivia_points":agent.trivia_points})
+        except:
+            return JsonResponse({'status':'error', 'response':'usuario no encontrado'})
+    else:
+        return JsonResponse({'status':'error', 'response':'request invalido'})
+
+@csrf_exempt
+def update_profile_picture(request):
+    if request.method == "POST":
+        telegram_id = request.POST.get("telegram_id")
+        profile_picture = request.POST.get("profile_picture")
+        try:
+            agent = Agent.objects.get(telegram_id=telegram_id)
+            agent.profile_picture = profile_picture
+            agent.save()
+            return JsonResponse({'status':'ok',"telegram_nick":agent.telegram_nick,"profile_picture":agent.profile_picture})
         except:
             return JsonResponse({'status':'error', 'response':'usuario no encontrado'})
     else:
