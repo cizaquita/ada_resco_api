@@ -187,3 +187,20 @@ def update_profile_picture(request):
             return JsonResponse({'status':'error', 'response':'usuario no encontrado'})
     else:
         return JsonResponse({'status':'error', 'response':'request invalido'})
+
+
+@csrf_exempt
+def topten_list(request):
+    """
+    Lista de agentes TOP TEN TRIIA
+    :return json(agentes):
+    """
+    if request.method == "POST":
+
+        result = Agent.objects\
+            .values('name','telegram_nick','trivia_points')
+        result = list(result)
+
+        return HttpResponse(json.dumps(result, cls=DjangoJSONEncoder))
+    else:
+        return JsonResponse({'status':'error', 'response':'request invalido'})
