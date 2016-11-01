@@ -93,7 +93,7 @@ def get_agent(request):
 def get_agent_bynick(request):
     if request.method == "POST":
         telegram_nick = request.POST.get("telegram_nick")
-        agent = Agent.objects.get(telegram_nick=telegram_nick)
+        #agent = Agent.objects.get(telegram_nick=telegram_nick)
 
         try:
             agent = Agent.objects.get(telegram_nick=telegram_nick)
