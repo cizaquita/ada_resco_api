@@ -96,7 +96,7 @@ def get_agent_bynick(request):
         #agent = Agent.objects.get(telegram_nick=telegram_nick)
 
         try:
-            agent = Agent.objects.get(telegram_nick=telegram_nick)
+            agent = Agent.objects.get(telegram_nick__iexact=telegram_nick)
             return JsonResponse({'status':'ok',"name":agent.name,"city":agent.city,"verified":agent.verified,"ingress_nick":agent.ingress_nick,"ingress_level":agent.ingress_level,"telegram_nick":agent.telegram_nick,"telegram_id":agent.telegram_id, "trivia_points":agent.trivia_points, "verified_for":agent.verified_for, "verified_level":agent.verified_level, "profile_picture":agent.profile_picture})
         except:
             return JsonResponse({'status':'error', 'response':'usuario no encontrado'})
