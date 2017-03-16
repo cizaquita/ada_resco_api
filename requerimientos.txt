@@ -1,2 +1,2 @@
 djangorestframework
-pillow
+pillow==2.0
