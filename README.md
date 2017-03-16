@@ -7,8 +7,8 @@ Instalar python depende de tu sistema operativo, esta vez será para Linux:
 
 1. 'sudo apt-get install python3' // Instalamos python3
 2. 'sudo apt-get install python3 virtualenvwrapper' // Instalamos el ambiente virtual
-3. 'mkvirtualenv <venv> -p python3' // Creamos un ambiente virtual "<venv>" para que sea solo python3
-4. 'workon <venv>' // Seleccionamos el ambiente que acabam0os de crear
+3. 'mkvirtualenv venv -p python3' // Creamos un ambiente virtual "venv" para que sea solo python3
+4. 'workon venv' // Seleccionamos el ambiente que acabam0os de crear
 5. 'pip install django' // Instalamos Django en ese ambiente
 6. 'pip install -r requerimientos.txt' // Instalamos los modulos que necesita el proyecto
 
