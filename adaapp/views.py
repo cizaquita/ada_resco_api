@@ -160,16 +160,17 @@ def update_trivia_points(request):
     if request.method == "POST":
         telegram_id = request.POST.get("telegram_id")
         action = request.POST.get("action")
+        points = request.POST.get("points")
         try:
             agent = Agent.objects.get(telegram_id=telegram_id)
             if action == "sumar":
-                agent.trivia_points += 1
+                agent.trivia_points += int(points)
             else:
-                agent.trivia_points -= 1
+                agent.trivia_points -= int(points)
             agent.save()
             return JsonResponse({'status':'ok',"name":agent.name,"trivia_points":agent.trivia_points})
-        except:
-            return JsonResponse({'status':'error', 'response':'usuario no encontrado'})
+        except Exception as e:
+            return JsonResponse({'status':'error', 'response':'usuario no encontrado o ' + str(e)})
     else:
         return JsonResponse({'status':'error', 'response':'request invalido'})
 
