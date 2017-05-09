@@ -1,5 +1,7 @@
 #Archivos de Prueba
 api/settings.py
+db.sqlite3
+nohup.out
 
 *.pyc
 ### Python template
