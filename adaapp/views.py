@@ -17,7 +17,7 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
-    #permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
  
 class GroupViewSet(viewsets.ModelViewSet):
     """
@@ -32,7 +32,7 @@ class PostViewSet(viewsets.ModelViewSet):
     """
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    #permission_classes = (IsAdminUser,)
+    # permission_classes = (IsAdminUser,)
 
 class FactionViewSet(viewsets.ModelViewSet):
     """
@@ -40,7 +40,7 @@ class FactionViewSet(viewsets.ModelViewSet):
     """
     queryset = Faction.objects.all()
     serializer_class = FactionSerializer
-    #permission_classes = (IsAdminUser,)
+    # permission_classes = (IsAdminUser,)
 
 class AgentViewSet(viewsets.ModelViewSet):
     """
@@ -48,7 +48,7 @@ class AgentViewSet(viewsets.ModelViewSet):
     """
     queryset = Agent.objects.all()
     serializer_class = AgentSerializer
-    #permission_classes = (IsAdminUser,)
+    # permission_classes = (IsAdminUser,)
 
 
 #
@@ -63,7 +63,6 @@ def create_agent(request):
     """
     if request.method == "POST":
 
-        name = request.POST.get("name")
         telegram_nick = request.POST.get("telegram_nick")
         telegram_id = request.POST.get("telegram_id")
 
@@ -71,9 +70,15 @@ def create_agent(request):
             Agent.objects.get(telegram_id=telegram_id)
             return JsonResponse({'status':'error', 'response':'Agente ya está creado'})
         except:
-            agent = Agent(name=name, telegram_nick=telegram_nick, telegram_id=telegram_id)
+            agent = Agent(telegram_nick=telegram_nick, telegram_id=telegram_id)
             agent.save()
-            return JsonResponse({'status':'ok','id':agent.id, 'name':agent.name, 'telegram_nick':agent.telegram_nick, 'telegram_id':agent.telegram_id})
+            return JsonResponse({
+                'status':'ok',
+                'id': agent.id,
+                "name": agent.telegram_nick,
+                'telegram_nick': agent.telegram_nick,
+                'telegram_id': agent.telegram_id
+            })
     else:
         return JsonResponse({'status':'error', 'response':'request invalido'})
 
@@ -84,7 +89,20 @@ def get_agent(request):
 
         try:
             agent = Agent.objects.get(telegram_id=telegram_id)
-            return JsonResponse({'status':'ok',"name":agent.name,"city":agent.city,"verified":agent.verified,"ingress_nick":agent.ingress_nick,"ingress_level":agent.ingress_level,"telegram_nick":agent.telegram_nick,"telegram_id":agent.telegram_id, "trivia_points":agent.trivia_points, "verified_for":agent.verified_for, "verified_level":agent.verified_level, "profile_picture":agent.profile_picture})
+            return JsonResponse({
+                'status':'ok',
+                "name": agent.telegram_nick,
+                "city":agent.city,
+                "verified":agent.verified,
+                "ingress_nick":agent.ingress_nick,
+                "ingress_level":agent.ingress_level,
+                "telegram_nick":agent.telegram_nick,
+                "telegram_id":agent.telegram_id,
+                "trivia_points":agent.trivia_points,
+                "verified_for":agent.verified_for,
+                "verified_level":agent.verified_level,
+                "profile_picture":agent.profile_picture
+            })
         except:
             return JsonResponse({'status':'error', 'response':'usuario no encontrado'})
     else:
@@ -99,7 +117,20 @@ def get_agent_bynick(request):
 
         try:
             agent = Agent.objects.get(telegram_nick__iexact=telegram_nick)
-            return JsonResponse({'status':'ok',"name":agent.name,"city":agent.city,"verified":agent.verified,"ingress_nick":agent.ingress_nick,"ingress_level":agent.ingress_level,"telegram_nick":agent.telegram_nick,"telegram_id":agent.telegram_id, "trivia_points":agent.trivia_points, "verified_for":agent.verified_for, "verified_level":agent.verified_level, "profile_picture":agent.profile_picture})
+            return JsonResponse({
+                'status':'ok',
+                "name": agent.telegram_nick,
+                "city":agent.city,
+                "verified":agent.verified,
+                "ingress_nick":agent.ingress_nick,
+                "ingress_level":agent.ingress_level,
+                "telegram_nick":agent.telegram_nick,
+                "telegram_id":agent.telegram_id,
+                "trivia_points":agent.trivia_points,
+                "verified_for":agent.verified_for,
+                "verified_level":agent.verified_level,
+                "profile_picture":agent.profile_picture
+            })
         except:
             return JsonResponse({'status':'error', 'response':'usuario no encontrado'})
     else:
@@ -135,7 +166,12 @@ def update_agent_ver_lvl(request):
             agent.verified_for = verified_for
             agent.verified = True
             agent.save()
-            return JsonResponse({'status':'ok',"telegram_nick":agent.telegram_nick,'name':agent.name,"verified_level":agent.verified_level})
+            return JsonResponse({
+                'status':'ok',
+                "telegram_nick":agent.telegram_nick,
+                'name':agent.name,
+                "verified_level":agent.verified_level
+            })
         except:
             return JsonResponse({'status':'error', 'response':'usuario no encontrado'})
     else:
@@ -151,7 +187,11 @@ def update_agent_city(request):
             agent = Agent.objects.get(telegram_id=telegram_id)
             agent.city = agent_city
             agent.save()
-            return JsonResponse({'status':'ok',"name":agent.name,"verified_level":agent.verified_level})
+            return JsonResponse({
+                'status':'ok',
+                "name":agent.telegram_nick,
+                "verified_level":agent.verified_level
+            })
         except:
             return JsonResponse({'status':'error', 'response':'usuario no encontrado'})
     else:
@@ -170,7 +210,11 @@ def update_trivia_points(request):
             else:
                 agent.trivia_points -= int(points)
             agent.save()
-            return JsonResponse({'status':'ok',"name":agent.name,"trivia_points":agent.trivia_points})
+            return JsonResponse({
+                'status':'ok',
+                "name":agent.telegram_nick,
+                "trivia_points":agent.trivia_points
+            })
         except Exception as e:
             return JsonResponse({'status':'error', 'response':'usuario no encontrado o ' + str(e)})
     else:
@@ -185,7 +229,11 @@ def update_profile_picture(request):
             agent = Agent.objects.get(telegram_id=telegram_id)
             agent.profile_picture = profile_picture
             agent.save()
-            return JsonResponse({'status':'ok',"telegram_nick":agent.telegram_nick,"profile_picture":agent.profile_picture})
+            return JsonResponse({
+                'status':'ok',
+                "telegram_nick":agent.telegram_nick,
+                "profile_picture":agent.profile_picture
+            })
         except:
             return JsonResponse({'status':'error', 'response':'usuario no encontrado'})
     else:
@@ -201,7 +249,7 @@ def topten_list(request):
     if request.method == "POST":
 
         result = Agent.objects\
-            .values('name','telegram_nick','trivia_points')
+            .values('telegram_nick','trivia_points')
         result = list(result)
 
         return HttpResponse(json.dumps(result, cls=DjangoJSONEncoder))

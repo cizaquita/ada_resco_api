@@ -26,6 +26,6 @@ class FactionSerializer(serializers.HyperlinkedModelSerializer):
 class AgentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Agent
-        fields = ('name', 'faction', 'city', 'verified', 'profile_picture', 'ingress_nick', 'ingress_level', 'telegram_nick', 'telegram_id', 'geo_latitude', 'geo_longitude', 'verified_level', 'trivia_points', 'id')
+        fields = ('id', 'faction', 'city', 'verified', 'profile_picture', 'ingress_nick', 'ingress_level', 'telegram_nick', 'telegram_id', 'geo_latitude', 'geo_longitude', 'verified_level', 'trivia_points')
 
 
