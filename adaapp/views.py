@@ -249,7 +249,7 @@ def topten_list(request):
     if request.method == "POST":
 
         result = Agent.objects\
-            .values('telegram_nick','trivia_points')
+            .values('ingress_nick','telegram_nick','trivia_points')
         result = list(result)
 
         return HttpResponse(json.dumps(result, cls=DjangoJSONEncoder))
