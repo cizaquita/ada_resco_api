@@ -253,7 +253,7 @@ def update_profile(request):
             agent.save()
             return JsonResponse({
                 'status':'ok',
-                "telegram_id":agent.telegram_id
+                "telegram_id":agent.telegram_id,
                 "telegram_nick":agent.telegram_nick,
                 "name":agent.name
             })
