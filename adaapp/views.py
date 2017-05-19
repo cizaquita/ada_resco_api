@@ -63,6 +63,7 @@ def create_agent(request):
     """
     if request.method == "POST":
 
+        name = request.POST.get("name")
         telegram_nick = request.POST.get("telegram_nick")
         telegram_id = request.POST.get("telegram_id")
 
@@ -70,12 +71,12 @@ def create_agent(request):
             Agent.objects.get(telegram_id=telegram_id)
             return JsonResponse({'status':'error', 'response':'Agente ya está creado'})
         except:
-            agent = Agent(telegram_nick=telegram_nick, telegram_id=telegram_id)
+            agent = Agent(telegram_nick=telegram_nick, telegram_id=telegram_id, name=name)
             agent.save()
             return JsonResponse({
                 'status':'ok',
                 'id': agent.id,
-                "name": agent.telegram_nick,
+                "name": agent.name,
                 'telegram_nick': agent.telegram_nick,
                 'telegram_id': agent.telegram_id
             })
@@ -91,7 +92,7 @@ def get_agent(request):
             agent = Agent.objects.get(telegram_id=telegram_id)
             return JsonResponse({
                 'status':'ok',
-                "name": agent.telegram_nick,
+                "name": agent.name,
                 "city":agent.city,
                 "verified":agent.verified,
                 "ingress_nick":agent.ingress_nick,
@@ -119,7 +120,7 @@ def get_agent_bynick(request):
             agent = Agent.objects.get(telegram_nick__iexact=telegram_nick)
             return JsonResponse({
                 'status':'ok',
-                "name": agent.telegram_nick,
+                "name": agent.name,
                 "city":agent.city,
                 "verified":agent.verified,
                 "ingress_nick":agent.ingress_nick,
@@ -189,7 +190,7 @@ def update_agent_city(request):
             agent.save()
             return JsonResponse({
                 'status':'ok',
-                "name":agent.telegram_nick,
+                "telegram_nick":agent.telegram_nick,
                 "verified_level":agent.verified_level
             })
         except:
@@ -212,7 +213,7 @@ def update_trivia_points(request):
             agent.save()
             return JsonResponse({
                 'status':'ok',
-                "name":agent.telegram_nick,
+                "telegram_nick":agent.telegram_nick,
                 "trivia_points":agent.trivia_points
             })
         except Exception as e:
