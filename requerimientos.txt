@@ -1,4 +1,8 @@
 djangorestframework
 Django
 pillow==2.0
+<<<<<<< HEAD
 MySQL-python
+=======
+MySQL-python
+>>>>>>> 1c633c00b6903abaa2503bd8bb2cd0a5474a00bd
