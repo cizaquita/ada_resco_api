@@ -40,6 +40,7 @@ urlpatterns = [
     url(r'^update_agent_city/', views.update_agent_city, name='update_agent_city'),
     url(r'^update_trivia_points/', views.update_trivia_points, name='update_trivia_points'),
     url(r'^update_profile_picture/', views.update_profile_picture, name='update_profile_picture'),
-    url(r'^topten_list/', views.topten_list, name='topten_list')
+    url(r'^topten_list/', views.topten_list, name='topten_list'),
+    url(r'^update_profile/', views.update_profile, name='update_profile')
     
 ]

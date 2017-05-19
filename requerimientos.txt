@@ -1,3 +1,4 @@
 djangorestframework
 Django
 pillow==2.0
+MySQL-python

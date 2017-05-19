@@ -239,6 +239,29 @@ def update_profile_picture(request):
     else:
         return JsonResponse({'status':'error', 'response':'request invalido'})
 
+@csrf_exempt
+def update_profile(request):
+    if request.method == "POST":
+        telegram_id = request.POST.get("telegram_id")
+        name = request.POST.get("name")
+        telegram_nick = request.POST.get("telegram_nick")
+
+        try:
+            agent = Agent.objects.get(telegram_id=telegram_id)
+            agent.name = name
+            agent.telegram_nick = telegram_nick
+            agent.save()
+            return JsonResponse({
+                'status':'ok',
+                "telegram_id":agent.telegram_id
+                "telegram_nick":agent.telegram_nick,
+                "name":agent.name
+            })
+        except:
+            return JsonResponse({'status':'error', 'response':'usuario no encontrado'})
+    else:
+        return JsonResponse({'status':'error', 'response':'request invalido'})
+
 
 @csrf_exempt
 def topten_list(request):
