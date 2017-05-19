@@ -1,3 +1,3 @@
 #!/bin/bash
-./manage.py runserver 1338
+/home/cizaquita/Desktop/ada_resco_api/.venv/bin/python manage.py runserver ada.resistencia.la:1338
 
